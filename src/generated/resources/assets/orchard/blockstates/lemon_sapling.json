@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "orchard:block/lemon_sapling"
+    }
+  }
+}

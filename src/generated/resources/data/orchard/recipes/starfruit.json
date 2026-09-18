@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:starfruit_crate"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "orchard:starfruit"
+  }
+}

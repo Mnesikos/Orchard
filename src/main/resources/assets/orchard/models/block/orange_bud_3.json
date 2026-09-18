@@ -1,0 +1,73 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"bud": "orchard:block/fruit_budlings",
+		"fruit": "orchard:block/orange_bud",
+		"particle": "#fruit"
+	},
+	"elements": [
+		{
+			"from": [5, 9, 5],
+			"to": [11, 14, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 8, 5]},
+			"faces": {
+				"north": {"uv": [0, 0, 6, 5], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 6, 5], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 6, 5], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 6, 5], "texture": "#fruit"},
+				"up": {"uv": [12, 12, 6, 6], "texture": "#fruit"},
+				"down": {"uv": [12, 0, 6, 6], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [6.5, 14, 8],
+			"to": [9.5, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 14, 8]},
+			"faces": {
+				"north": {"uv": [0, 5, 3, 7], "texture": "#fruit"},
+				"east": {"uv": [1, 0, 1, 1], "texture": "#fruit"},
+				"south": {"uv": [3, 5, 0, 7], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 0, 1], "texture": "#fruit"},
+				"up": {"uv": [0, 0, 1.5, 0], "texture": "#fruit"},
+				"down": {"uv": [0, 1, 1.5, 1], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [7.30815, 12.41906, 7],
+			"to": [7.30815, 15.41906, 9],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"east": {"uv": [0, 0, 2, 3], "texture": "#bud"},
+				"south": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"west": {"uv": [2, 0, 0, 3], "texture": "#bud"},
+				"up": {"uv": [0, 2, 0, 0], "texture": "#bud"},
+				"down": {"uv": [0, 0, 0, 2], "texture": "#bud"}
+			}
+		},
+		{
+			"from": [8.69185, 12.41906, 7],
+			"to": [8.69185, 15.41906, 9],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"east": {"uv": [0, 0, 2, 3], "texture": "#bud"},
+				"south": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"west": {"uv": [2, 0, 0, 3], "texture": "#bud"},
+				"up": {"uv": [0, 2, 0, 0], "texture": "#bud"},
+				"down": {"uv": [0, 0, 0, 2], "texture": "#bud"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "orange",
+			"origin": [-1, 8, 5],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

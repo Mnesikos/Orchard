@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "orchard:block/crate_bottom",
+    "side": "orchard:block/crate_side",
+    "top": "orchard:block/plum_crate"
+  }
+}

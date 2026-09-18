@@ -1,0 +1,113 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"bud": "orchard:block/fruit_budlings",
+		"fruit": "orchard:block/mango_bud",
+		"particle": "#fruit"
+	},
+	"elements": [
+		{
+			"from": [8.69185, 12.41906, 7],
+			"to": [8.69185, 15.41906, 9],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"east": {"uv": [0, 0, 2, 3], "texture": "#bud"},
+				"south": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"west": {"uv": [2, 0, 0, 3], "texture": "#bud"},
+				"up": {"uv": [0, 2, 0, 0], "texture": "#bud"},
+				"down": {"uv": [0, 0, 0, 2], "texture": "#bud"}
+			}
+		},
+		{
+			"from": [7.30815, 12.41906, 7],
+			"to": [7.30815, 15.41906, 9],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"east": {"uv": [0, 0, 2, 3], "texture": "#bud"},
+				"south": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"west": {"uv": [2, 0, 0, 3], "texture": "#bud"},
+				"up": {"uv": [0, 2, 0, 0], "texture": "#bud"},
+				"down": {"uv": [0, 0, 0, 2], "texture": "#bud"}
+			}
+		},
+		{
+			"from": [7, 12.41906, 7.30815],
+			"to": [9, 15.41906, 7.30815],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [2, 0, 0, 3], "texture": "#bud"},
+				"east": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"south": {"uv": [0, 0, 2, 3], "texture": "#bud"},
+				"west": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"up": {"uv": [0, 2, 0, 0], "rotation": 90, "texture": "#bud"},
+				"down": {"uv": [0, 0, 0, 2], "rotation": 270, "texture": "#bud"}
+			}
+		},
+		{
+			"from": [7, 12.41906, 8.69185],
+			"to": [9, 15.41906, 8.69185],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 16, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 3], "texture": "#bud"},
+				"east": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"south": {"uv": [2, 0, 0, 3], "texture": "#bud"},
+				"west": {"uv": [0, 0, 0, 3], "texture": "#bud"},
+				"up": {"uv": [0, 2, 0, 0], "rotation": 270, "texture": "#bud"},
+				"down": {"uv": [0, 0, 0, 2], "rotation": 90, "texture": "#bud"}
+			}
+		},
+		{
+			"from": [6.5, 11, 8],
+			"to": [9.5, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6.5, 9, 8]},
+			"faces": {
+				"north": {"uv": [12, 0, 15, 5], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 0, 5], "texture": "#fruit"},
+				"south": {"uv": [12, 0, 15, 5], "texture": "#fruit"},
+				"west": {"uv": [2, 0, 2, 5], "texture": "#fruit"},
+				"up": {"uv": [0, 0, 0, 3], "rotation": 270, "texture": "#fruit"},
+				"down": {"uv": [0, 0, 0, 3], "rotation": 90, "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [8, 11, 6.5],
+			"to": [8, 16, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 6.5]},
+			"faces": {
+				"north": {"uv": [2, 0, 2, 5], "texture": "#fruit"},
+				"east": {"uv": [12, 0, 15, 5], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 0, 5], "texture": "#fruit"},
+				"west": {"uv": [12, 0, 15, 5], "texture": "#fruit"},
+				"up": {"uv": [0, 0, 0, 3], "texture": "#fruit"},
+				"down": {"uv": [0, 0, 0, 3], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [7, 11, 7],
+			"to": [9, 13, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 11, 7]},
+			"faces": {
+				"north": {"uv": [6, 6, 8, 8], "texture": "#fruit"},
+				"east": {"uv": [6, 6, 8, 8], "texture": "#fruit"},
+				"south": {"uv": [6, 6, 8, 8], "texture": "#fruit"},
+				"west": {"uv": [6, 6, 8, 8], "texture": "#fruit"},
+				"up": {"uv": [6, 6, 8, 8], "texture": "#fruit"},
+				"down": {"uv": [6, 6, 8, 8], "texture": "#fruit"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "grow1",
+			"origin": [8, 16, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5]
+		},
+		6
+	]
+}

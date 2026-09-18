@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:starfruit"
+    },
+    {
+      "item": "orchard:starfruit"
+    },
+    {
+      "item": "orchard:starfruit"
+    },
+    {
+      "item": "orchard:starfruit"
+    }
+  ],
+  "result": {
+    "item": "orchard:starfruit_sapling"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "orchard:block/red_apple_sapling"
+    }
+  }
+}
