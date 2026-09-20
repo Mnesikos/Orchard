@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:lemon"
+    },
+    {
+      "item": "orchard:lemon"
+    },
+    {
+      "item": "orchard:lemon"
+    },
+    {
+      "item": "orchard:lemon"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:lemon_sapling"
+  }
+}

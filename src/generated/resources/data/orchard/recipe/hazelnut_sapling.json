@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:hazelnut"
+    },
+    {
+      "item": "orchard:hazelnut"
+    },
+    {
+      "item": "orchard:hazelnut"
+    },
+    {
+      "item": "orchard:hazelnut"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:hazelnut_sapling"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cinnamon_crate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "orchard:cinnamon_crate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "orchard:cinnamon"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cinnamon_crate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "orchard:cinnamon"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:cinnamon"
+    },
+    {
+      "item": "orchard:cinnamon"
+    },
+    {
+      "item": "orchard:cinnamon"
+    },
+    {
+      "item": "orchard:cinnamon"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:cinnamon_sapling"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:plum"
+    },
+    {
+      "item": "orchard:plum"
+    },
+    {
+      "item": "orchard:plum"
+    },
+    {
+      "item": "orchard:plum"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:plum_sapling"
+  }
+}

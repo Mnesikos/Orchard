@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:pawpaw"
+    },
+    {
+      "item": "orchard:pawpaw"
+    },
+    {
+      "item": "orchard:pawpaw"
+    },
+    {
+      "item": "orchard:pawpaw"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:pawpaw_sapling"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:lychee"
+    },
+    {
+      "item": "orchard:lychee"
+    },
+    {
+      "item": "orchard:lychee"
+    },
+    {
+      "item": "orchard:lychee"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:lychee_sapling"
+  }
+}

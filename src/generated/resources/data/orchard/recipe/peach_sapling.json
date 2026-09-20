@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "orchard:peach"
+    },
+    {
+      "item": "orchard:peach"
+    },
+    {
+      "item": "orchard:peach"
+    },
+    {
+      "item": "orchard:peach"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "orchard:peach_sapling"
+  }
+}
