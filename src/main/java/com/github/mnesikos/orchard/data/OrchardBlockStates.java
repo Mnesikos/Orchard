@@ -62,7 +62,7 @@ public class OrchardBlockStates extends BlockStateProvider {
 
     public void fruitBlock(FruitBlock block) {
         String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
-        itemModels().getBuilder(name + "_bud").parent(models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, name + "_3")));
+        itemModels().getBuilder(name).parent(models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, name + "_3")));
         Function<BlockState, ModelFile> modelFunc = (state ->
                 models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, name + "_" + state.getValue(FruitBlock.AGE)))
         );
