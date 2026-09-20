@@ -58,7 +58,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "orchard:cherry_bud_bud"
+          "name": "orchard:cherry_bud"
         }
       ],
       "rolls": 1.0

@@ -58,7 +58,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "orchard:hazelnut_bud_bud"
+          "name": "orchard:hazelnut_bud"
         }
       ],
       "rolls": 1.0

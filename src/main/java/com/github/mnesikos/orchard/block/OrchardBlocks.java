@@ -69,7 +69,7 @@ public class OrchardBlocks {
 
     private static RegistryObject<FruitBlock> registerFruitNode(String name, Supplier<? extends Item> fruit) {
         RegistryObject<FruitBlock> registryObject = REGISTRAR.register(name, () -> new FruitBlock(fruit, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
-        OrchardItems.REGISTRAR_NO_TAB.register(name + "_bud", () -> new BlockItem(registryObject.get(), new Item.Properties()));
+        OrchardItems.REGISTRAR_NO_TAB.register(name, () -> new BlockItem(registryObject.get(), new Item.Properties()));
         return registryObject;
     }
 }
