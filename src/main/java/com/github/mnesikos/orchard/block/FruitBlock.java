@@ -9,6 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -29,7 +31,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.IPlantable;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.util.TriState;
 
 import java.util.function.Supplier;
 
@@ -76,18 +79,23 @@ public class FruitBlock extends CropBlock {
         if (level.getRawBrightness(pos, 0) >= 9) {
             int i = getAge(state);
             if (i < getMaxAge()) { //todo config tick vs daily growth
-                float f = FruitBlock.getGrowthSpeed(this, level, pos);
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0)) {
+                float f = FruitBlock.getGrowthSpeed(state, level, pos);
+                if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0)) {
                     level.setBlock(pos, getStateForAge(i + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
+                    CommonHooks.fireCropGrowPost(level, pos, state);
                 }
             }
         }
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!isMaxAge(state) && player.getItemInHand(hand).is(Items.BONE_MEAL)) return InteractionResult.PASS;
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        return !isMaxAge(state) && stack.is(Items.BONE_MEAL) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (!isMaxAge(state)) return InteractionResult.PASS;
 
         else if (isMaxAge(state)) {
             popResource(level, pos, new ItemStack(getBaseSeedId(), 1));
@@ -97,7 +105,7 @@ public class FruitBlock extends CropBlock {
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, resetAgeState));
             return InteractionResult.sidedSuccess(level.isClientSide);
 
-        } else return super.use(state, level, pos, player, hand, hitResult);
+        } else return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 
     @Override
@@ -105,15 +113,27 @@ public class FruitBlock extends CropBlock {
         return super.getBonemealAgeIncrease(level) / 3;
     }
 
-    protected static float getGrowthSpeed(Block block, BlockGetter level, BlockPos pos) {
+    protected static float getGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
+        Block block = state.getBlock();
         float f = 1.0F;
         BlockPos abovePos = pos.above();
 
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
-                float f1 = 0.0F;
-                BlockState blockstate = level.getBlockState(abovePos.offset(i, 0, j));
-                if (blockstate.canSustainPlant(level, abovePos.offset(i, 0, j), Direction.DOWN, (IPlantable) block)) {
+                float f1;
+                label77:
+                {
+                    f1 = 0.0F;
+                    BlockState blockstate = level.getBlockState(abovePos.offset(i, 0, j));
+                    TriState canSustainPlant = blockstate.canSustainPlant(level, abovePos.offset(i, 0, j), Direction.DOWN, state);
+                    if (canSustainPlant.isDefault()) {
+                        if (!(blockstate.getBlock() instanceof LeavesBlock)) {
+                            break label77;
+                        }
+                    } else if (!canSustainPlant.isTrue()) {
+                        break label77;
+                    }
+
                     f1 = 1.0F;
                     if (blockstate.isFertile(level, pos.offset(i, 0, j))) {
                         f1 = 3.0F;
@@ -149,9 +169,10 @@ public class FruitBlock extends CropBlock {
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos abovePos = pos.above();
-        if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-            return level.getBlockState(abovePos).canSustainPlant(level, abovePos, Direction.DOWN, this);
-        return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && this.mayPlaceOn(level.getBlockState(abovePos), level, abovePos);
+        TriState canSustainPlant = level.getBlockState(abovePos).canSustainPlant(level, abovePos, Direction.DOWN, state);
+        if (!canSustainPlant.isDefault())
+            return canSustainPlant.isTrue();
+        return hasSufficientLight(level, pos) && this.mayPlaceOn(level.getBlockState(abovePos), level, abovePos);
     }
 
     @Override
@@ -160,12 +181,12 @@ public class FruitBlock extends CropBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         return player.isCreative() ? new ItemStack(this) : super.getCloneItemStack(state, target, level, pos, player);
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return !isMaxAge(state); //todo config
     }
 

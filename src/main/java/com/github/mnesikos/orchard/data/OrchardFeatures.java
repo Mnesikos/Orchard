@@ -5,7 +5,7 @@ import com.github.mnesikos.orchard.block.FruitBlock;
 import com.github.mnesikos.orchard.block.OrchardBlocks;
 import com.github.mnesikos.orchard.levelgen.FruitDecorator;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -167,7 +167,7 @@ public class OrchardFeatures {
         );
     }
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         register(context, RED_APPLE, Feature.TREE, createRedApple().build());
         register(context, CHERRY, Feature.TREE, createCherry().build());
         register(context, LEMON, Feature.TREE, createLemon().build());
@@ -186,7 +186,7 @@ public class OrchardFeatures {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, name));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuredFeature) {
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuredFeature) {
         context.register(key, new ConfiguredFeature<>(feature, configuredFeature));
     }
 }

@@ -1,27 +1,27 @@
 package com.github.mnesikos.orchard.levelgen;
 
 import com.github.mnesikos.orchard.Orchard;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class FruitDecorator extends TreeDecorator {
-    public static final DeferredRegister<TreeDecoratorType<?>> REGISTRAR = DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, Orchard.MOD_ID);
-    public static final RegistryObject<TreeDecoratorType<FruitDecorator>> FRUIT_DECORATOR = REGISTRAR.register("fruit", () -> new TreeDecoratorType<>(FruitDecorator.CODEC));
-    public static final Codec<FruitDecorator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final DeferredRegister<TreeDecoratorType<?>> REGISTRAR = DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, Orchard.MOD_ID);
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<FruitDecorator>> FRUIT_DECORATOR = REGISTRAR.register("fruit", () -> new TreeDecoratorType<>(FruitDecorator.CODEC));
+    public static final MapCodec<FruitDecorator> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
             BlockStateProvider.CODEC.fieldOf("block_provider").forGetter((decorator) -> decorator.blockProvider),
             IntProvider.codec(0, 16).fieldOf("fruit_count").forGetter((decorator) -> decorator.fruitCount)
     ).apply(instance, FruitDecorator::new));

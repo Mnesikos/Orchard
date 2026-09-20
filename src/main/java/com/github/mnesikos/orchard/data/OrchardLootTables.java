@@ -1,10 +1,10 @@
 package com.github.mnesikos.orchard.data;
 
-import com.github.mnesikos.orchard.Orchard;
 import com.github.mnesikos.orchard.block.FruitBlock;
 import com.github.mnesikos.orchard.block.OrchardBlocks;
 import com.github.mnesikos.orchard.item.OrchardItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -15,15 +15,12 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class OrchardLootTables extends BlockLootSubProvider {
-    public OrchardLootTables() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public OrchardLootTables(HolderLookup.Provider lookupProvider) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), lookupProvider);
     }
 
     @Override
@@ -75,7 +72,7 @@ public class OrchardLootTables extends BlockLootSubProvider {
                         .when(maxFruitBlockAge)
                         .add(LootItem.lootTableItem(fruitItem))
                 ).withPool(LootPool.lootPool()
-                        .when(HAS_SHEARS.or(HAS_SILK_TOUCH))
+                        .when(HAS_SHEARS.or(hasSilkTouch()))
                         .add(LootItem.lootTableItem(fruitBlock.asItem()))
                 )
         ));
@@ -83,9 +80,8 @@ public class OrchardLootTables extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ForgeRegistries.BLOCKS.getEntries().stream()
-                .filter(e -> e.getKey().location().getNamespace().equals(Orchard.MOD_ID))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+        return OrchardBlocks.REGISTRAR.getEntries().stream()
+                .map(e -> (Block) e.value())
+                .toList();
     }
 }

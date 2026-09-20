@@ -3,23 +3,24 @@ package com.github.mnesikos.orchard.data;
 import com.github.mnesikos.orchard.Orchard;
 import com.github.mnesikos.orchard.block.OrchardBlocks;
 import com.github.mnesikos.orchard.item.OrchardItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class OrchardRecipes extends RecipeProvider {
-    public OrchardRecipes(PackOutput pOutput) {
-        super(pOutput);
+    public OrchardRecipes(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(pOutput, lookupProvider);
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(RecipeOutput consumer) {
         crateRecipes(consumer, OrchardItems.CHERRY.get(), OrchardBlocks.CHERRY_CRATE.get());
         crateRecipes(consumer, OrchardItems.CINNAMON.get(), OrchardBlocks.CINNAMON_CRATE.get());
         crateRecipes(consumer, OrchardItems.HAZELNUT.get(), OrchardBlocks.HAZELNUT_CRATE.get());
@@ -47,11 +48,11 @@ public class OrchardRecipes extends RecipeProvider {
         saplingsFromFruit(consumer, OrchardBlocks.STARFRUIT_SAPLING.get(), OrchardItems.STARFRUIT.get());
     }
 
-    protected static void crateRecipes(Consumer<FinishedRecipe> consumer, ItemLike unpacked, ItemLike packed) {
+    protected static void crateRecipes(RecipeOutput consumer, ItemLike unpacked, ItemLike packed) {
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, unpacked, RecipeCategory.BUILDING_BLOCKS, packed, getSimpleModdedRecipeName(packed), null, getSimpleModdedRecipeName(unpacked), null);
     }
 
-    protected static void saplingsFromFruit(Consumer<FinishedRecipe> consumer, ItemLike sapling, ItemLike fruit) {
+    protected static void saplingsFromFruit(RecipeOutput consumer, ItemLike sapling, ItemLike fruit) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, sapling).requires(fruit, 4).unlockedBy(getHasName(fruit), has(fruit)).save(consumer);
     }
 

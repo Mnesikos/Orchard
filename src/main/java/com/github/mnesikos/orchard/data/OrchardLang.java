@@ -5,7 +5,7 @@ import com.github.mnesikos.orchard.block.OrchardBlocks;
 import com.github.mnesikos.orchard.item.OrchardItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class OrchardLang extends LanguageProvider {
     public OrchardLang(PackOutput output) {

@@ -3,8 +3,8 @@ package com.github.mnesikos.orchard.data;
 import com.github.mnesikos.orchard.Orchard;
 import com.github.mnesikos.orchard.item.OrchardItems;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class OrchardItemModels extends ItemModelProvider {
     public OrchardItemModels(PackOutput output, ExistingFileHelper existingFileHelper) {

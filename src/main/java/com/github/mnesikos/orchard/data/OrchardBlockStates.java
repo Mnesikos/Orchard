@@ -3,16 +3,16 @@ package com.github.mnesikos.orchard.data;
 import com.github.mnesikos.orchard.Orchard;
 import com.github.mnesikos.orchard.block.FruitBlock;
 import com.github.mnesikos.orchard.block.OrchardBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.function.Function;
 
@@ -61,7 +61,7 @@ public class OrchardBlockStates extends BlockStateProvider {
     }
 
     public void fruitBlock(FruitBlock block) {
-        String name = ForgeRegistries.BLOCKS.getKey(block).getPath();
+        String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
         itemModels().getBuilder(name + "_bud").parent(models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, name + "_3")));
         Function<BlockState, ModelFile> modelFunc = (state ->
                 models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, name + "_" + state.getValue(FruitBlock.AGE)))
@@ -77,14 +77,14 @@ public class OrchardBlockStates extends BlockStateProvider {
     }
 
     public void saplingBlock(Block block) {
-        String name = ForgeRegistries.BLOCKS.getKey(block).getPath();
+        String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
         ResourceLocation texture = modLoc(ModelProvider.BLOCK_FOLDER + "/" + name);
         itemModels().getBuilder(name).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", texture);
         simpleBlock(block, models().cross(name, texture).renderType("cutout"));
     }
 
     public void crateBlock(Block block) {
-        simpleBlockWithItem(block, models().cubeBottomTop(ForgeRegistries.BLOCKS.getKey(block).getPath(),
+        simpleBlockWithItem(block, models().cubeBottomTop(BuiltInRegistries.BLOCK.getKey(block).getPath(),
                 ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, ModelProvider.BLOCK_FOLDER + "/crate_side"),
                 ResourceLocation.fromNamespaceAndPath(Orchard.MOD_ID, ModelProvider.BLOCK_FOLDER + "/crate_bottom"),
                 blockTexture(block)
