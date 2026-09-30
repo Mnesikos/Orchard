@@ -48,7 +48,7 @@ public class Orchard {
         FruitDecorator.REGISTRAR.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
-//        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

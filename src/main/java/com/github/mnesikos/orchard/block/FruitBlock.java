@@ -1,5 +1,6 @@
 package com.github.mnesikos.orchard.block;
 
+import com.github.mnesikos.orchard.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -73,14 +74,35 @@ public class FruitBlock extends CropBlock {
     }
 
     @Override
+    public void onBlockStateChange(LevelReader level, BlockPos pos, BlockState oldState, BlockState newState) {
+        if (!level.isClientSide() && Config.DAILY_GROWTH.get()) ((ServerLevel) level).scheduleTick(pos, this, 10);
+        super.onBlockStateChange(level, pos, oldState, newState);
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (Config.DAILY_GROWTH.get()) {
+            level.scheduleTick(pos, this, 10);
+            long dayTime = level.getDayTime() % 24000;
+            growFruit(level, pos, state, dayTime >= Config.DAILY_TIME_MIN.get() && dayTime < Config.DAILY_TIME_MIN.get() + 10);
+        }
+    }
+
+    @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!Config.DAILY_GROWTH.get()) {
+            float f = FruitBlock.getGrowthSpeed(state, level, pos);
+            growFruit(level, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0);
+        }
+    }
+
+    public void growFruit(ServerLevel level, BlockPos pos, BlockState state, boolean chance) {
         if (!level.isAreaLoaded(pos, 1))
             return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (level.getRawBrightness(pos, 0) >= 9) {
             int i = getAge(state);
-            if (i < getMaxAge()) { //todo config tick vs daily growth
-                float f = FruitBlock.getGrowthSpeed(state, level, pos);
-                if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0)) {
+            if (i < getMaxAge()) {
+                if (CommonHooks.canCropGrow(level, pos, state, chance)) {
                     level.setBlock(pos, getStateForAge(i + 1), 2);
                     CommonHooks.fireCropGrowPost(level, pos, state);
                 }

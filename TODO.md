@@ -1,8 +1,8 @@
 ## Core mechanics
 ### Fruit nodes
 - Daily growth
-  - [ ] advance a growth stage by 1 every day at 6am
-  - [ ] configurable (vanilla tick vs daily growth)
+  - [x] advance a growth stage by 1 every day at 6am
+  - [x] configurable (vanilla tick vs daily growth)
 - Aging mechanics
   - [ ] increase in quality after a certain amount of harvests
   - [ ] configurable
