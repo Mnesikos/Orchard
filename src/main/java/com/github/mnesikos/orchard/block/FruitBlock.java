@@ -21,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -91,8 +90,7 @@ public class FruitBlock extends CropBlock {
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!Config.DAILY_GROWTH.get()) {
-            float f = FruitBlock.getGrowthSpeed(state, level, pos);
-            growFruit(level, pos, state, random.nextInt((int) (25.0F / f) + 1) == 0);
+            growFruit(level, pos, state, random.nextInt(8) == 0);
         }
     }
 
@@ -103,8 +101,10 @@ public class FruitBlock extends CropBlock {
             int i = getAge(state);
             if (i < getMaxAge()) {
                 if (CommonHooks.canCropGrow(level, pos, state, chance)) {
-                    level.setBlock(pos, getStateForAge(i + 1), 2);
+                    BlockState growthState = getStateForAge(i + 1);
+                    level.setBlock(pos, growthState, 2);
                     CommonHooks.fireCropGrowPost(level, pos, state);
+                    level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(growthState));
                 }
             }
         }
@@ -133,59 +133,6 @@ public class FruitBlock extends CropBlock {
     @Override
     protected int getBonemealAgeIncrease(Level level) {
         return super.getBonemealAgeIncrease(level) / 3;
-    }
-
-    protected static float getGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
-        Block block = state.getBlock();
-        float f = 1.0F;
-        BlockPos abovePos = pos.above();
-
-        for (int i = -1; i <= 1; ++i) {
-            for (int j = -1; j <= 1; ++j) {
-                float f1;
-                label77:
-                {
-                    f1 = 0.0F;
-                    BlockState blockstate = level.getBlockState(abovePos.offset(i, 0, j));
-                    TriState canSustainPlant = blockstate.canSustainPlant(level, abovePos.offset(i, 0, j), Direction.DOWN, state);
-                    if (canSustainPlant.isDefault()) {
-                        if (!(blockstate.getBlock() instanceof LeavesBlock)) {
-                            break label77;
-                        }
-                    } else if (!canSustainPlant.isTrue()) {
-                        break label77;
-                    }
-
-                    f1 = 1.0F;
-                    if (blockstate.isFertile(level, pos.offset(i, 0, j))) {
-                        f1 = 3.0F;
-                    }
-                }
-
-                if (i != 0 || j != 0) {
-                    f1 /= 4.0F;
-                }
-
-                f += f1;
-            }
-        }
-
-        BlockPos northPos = pos.north();
-        BlockPos southPos = pos.south();
-        BlockPos westPos = pos.west();
-        BlockPos eastPos = pos.east();
-        boolean flag = level.getBlockState(westPos).is(block) || level.getBlockState(eastPos).is(block);
-        boolean flag1 = level.getBlockState(northPos).is(block) || level.getBlockState(southPos).is(block);
-        if (flag && flag1) {
-            f /= 2.0F;
-        } else {
-            boolean flag2 = level.getBlockState(westPos.north()).is(block) || level.getBlockState(eastPos.north()).is(block) || level.getBlockState(eastPos.south()).is(block) || level.getBlockState(westPos.south()).is(block);
-            if (flag2) {
-                f /= 2.0F;
-            }
-        }
-
-        return f;
     }
 
     @Override
