@@ -64,9 +64,9 @@ public class Orchard {
         dataGenerator.addProvider(event.includeClient(), new OrchardItemModels(packOutput, existingFileHelper));
         dataGenerator.addProvider(event.includeClient(), new OrchardLang(packOutput));
 //
-//        FruitsTags.FruitsBlockTags blockTagsProvider = new FruitsTags.FruitsBlockTags(packOutput, event.getLookupProvider(), existingFileHelper);
-//        dataGenerator.addProvider(event.includeServer(), blockTagsProvider);
-//        dataGenerator.addProvider(event.includeServer(), new FruitsTags.FruitsItemTags(packOutput, event.getLookupProvider(), blockTagsProvider, existingFileHelper));
+        FruitsTags.FruitsBlockTags blockTagsProvider = new FruitsTags.FruitsBlockTags(packOutput, event.getLookupProvider(), existingFileHelper);
+        dataGenerator.addProvider(event.includeServer(), blockTagsProvider);
+        dataGenerator.addProvider(event.includeServer(), new FruitsTags.FruitsItemTags(packOutput, event.getLookupProvider(), blockTagsProvider, existingFileHelper));
         dataGenerator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
                 List.of(new LootTableProvider.SubProviderEntry(OrchardLootTables::new, LootContextParamSets.BLOCK)), event.getLookupProvider()));
         dataGenerator.addProvider(event.includeServer(), new OrchardRecipes(packOutput, event.getLookupProvider()));

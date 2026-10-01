@@ -8,7 +8,7 @@
   - [ ] configurable
   - ex. 4 harvests = iron, 8 gold, 16 iridium
 - Seasonal growth
-  - [ ] compat with serene seasons(?) per tree type
+  - [x] compat with serene seasons(?) per tree type
 ### Logs/Leaves
 - [x] Logs and leaves can work like Pam's where they use vanilla ones. This is mainly to avoid adding a bunch of different wood types
 - [x] It would be nice if there was a way to customize what the final tree looks like so we can have custom ones for each. Or maybe just customize log/leaf type
